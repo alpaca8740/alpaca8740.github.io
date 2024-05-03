@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="zh">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>課堂作業10</title>
+
+    <style>
+
+       h4 {
+
+           color: yellow;
+
+       }
+
+       div {
+
+           color: red;
+
+           margin: 5px;
+
+       }
+
+       label {
+
+           color: blue;
+
+       }
+
+       input {
+
+           color: red;
+
+       }
+
+       div#fruit-info {
+
+           color: orange;
+
+           margin: 5px;
+
+       }
+
+       table {
+
+           border-collapse: collapse;
+
+           width: 100%;
+
+       }
+
+       th, td {
+
+           border: 1px solid black;
+
+           padding: 8px;
+
+           text-align: left;
+
+       }
+
+       th {
+
+           background-color: #f2f2f2;
+
+       }
+
+   </style>
+
+</head>
+
+<body>
+
+<form id="form01">
+
+    姓名：<input type="text" name="name01" value="" id="name"><br>
+
+    收件住址：<input type="text" name="address01" value="" id="address"><br>
+
+    ：<input type="tel" name="tel01" value="" id="tel"><br>
+
+    電子郵件：<input type="email" name="email01" value="" id="email"><br>
+
+    指定送貨日期：<input type="date" name="date01" id="date"><br>
+
+    水果種類：<br>
+
+    <input type="checkbox" name="fruit" id="fruit01" value="（5臺斤）">（5臺斤） 735元：
+
+    購買數量：<input type="number" name="number01"><br>
+
+    <input type="checkbox" name="fruit" id="fruit02" value="(2.5斤)">(2.5斤) 1016元：
+
+    購買數量：<input type="number" name="number02"><br>
+
+    <input type="checkbox" name="fruit" id="fruit03" value="(14斤)">(14台斤) 848元：
+
+    購買數量：<input type="number" name="number03"><br>
+
+    <input type="checkbox" name="fruit" id="fruit04" value="(10斤)">(10斤) 2300元：
+
+    購買數量：<input type="number" name="number04"><br>
+
+</form>
+
+<button onclick="shoppingInfo()"><h4>送出</h4></button>
+
+<div id="demo"></div>
+
+<script>
+
+var text = "<h4>您的購物資訊如下：</h4>";
+
+var sumToPay = 0;
+
+var submitted = false;
+
+
+
+function fruit(fruitType, fruitPrice, no) {
+
+    this.Type = fruitType;
+
+    this.Price = fruitPrice;
+
+    this.No = no;
+
+    this.subTotal = function() {
+
+        text += "水果種類：" + this.Type + "，共" + this.No + "單位<br>";
+
+        text += "價格小計：" + this.Price * this.No + "元<br>";
+
+    };
+
+}
+
+
+
+var fruit01 = new fruit("（5臺斤）", 735, 0);
+
+var fruit02 = new fruit("(2.5斤)", 1016, 0);
+
+var fruit03 = new fruit("(14斤)", 848, 0);
+
+var fruit04 = new fruit("(10斤)", 2300, 0);
+
+
+
+function shoppingInfo() {
+
+    if (submitted) {
+
+        alert("您已經結帳！");
+
+        return;
+
+    }
+
+    var x = document.getElementById("form01");
+
+    for (var i = 0; i < 4; i++) {
+
+        if (x.elements[5 + 2 * i].checked === true) {
+
+            var fruitType = x.elements[5 + 2 * i].value;
+
+            var fruitNo = parseInt(x.elements[6 + 2 * i].value);
+
+            switch (i) {
+
+                case 0:
+
+                    fruit01.No = fruitNo;
+
+                    sumToPay += fruit01.Price * fruit01.No;
+
+                    fruit01.subTotal();
+
+                    break;
+
+                case 1:
+
+                    fruit02.No = fruitNo;
+
+                    sumToPay += fruit02.Price * fruit02.No;
+
+                    fruit02.subTotal();
+
+                    break;
+
+                case 2:
+
+                    fruit03.No = fruitNo;
+
+                    sumToPay += fruit03.Price * fruit03.No;
+
+                    fruit03.subTotal();
+
+                    break;
+
+                case 3:
+
+                    fruit04.No = fruitNo;
+
+                    sumToPay += fruit04.Price * fruit04.No;
+
+                    fruit04.subTotal();
+
+                    break;
+
+            }
+
+        }
+
+    }
+
+    text += "價格合計：" + sumToPay + "元<br>";
+
+    text += "<h4>購物清單：</h4>";
+
+    text += "<table>";
+
+    text += "<tr><th>水果種類</th><th>購買數量</th><th>價格小計</th></tr>";
+
+    text += "<tr><td>" + fruit01.Type + "</td><td>" + fruit01.No + "</td><td>" + fruit01.Price * fruit01.No + "</td></tr>";
+
+    text += "<tr><td>" + fruit02.Type + "</td><td>" + fruit02.No + "</td><td>" + fruit02.Price * fruit02.No + "</td></tr>";
+
+    text += "<tr><td>" + fruit03.Type + "</td><td>" + fruit03.No + "</td><td>" + fruit03.Price * fruit03.No + "</td></tr>";
+
+    text += "<tr><td>" + fruit04.Type + "</td><td>" + fruit04.No + "</td><td>" + fruit04.Price * fruit04.No + "</td></tr>";
+
+    text += "</table>";
+
+    document.getElementById("demo").innerHTML = text;
+
+    submitted = true;
+
+}
+
+</script>
+
+</body>
+
+</html>

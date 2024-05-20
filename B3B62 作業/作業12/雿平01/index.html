@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>作業12</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function() {
+            $('img').on('mouseover', function() {
+                const originalSrc = $(this).attr('src');
+                const newSrc = originalSrc.replace(/\.jpg$/, '-1.jpg');
+                $(this).attr('src', newSrc);
+            }).on('mouseleave', function() {
+                const originalSrc = $(this).attr('src').replace(/-1\.jpg$/, '.jpg');
+                $(this).attr('src', originalSrc);
+            });
+        });
+    </script>
+</head>
+
+<body>
+<table>
+    <tr>
+        <td><img src="pic/01.jpg" width="60" height="60" alt="我"></td>
+        <td><img src="pic/02.jpg" width="60" height="60" alt="愛"></td>
+        <td><img src="pic/03.jpg" width="60" height="60" alt="大"></td>
+        <td><img src="pic/04.jpg" width="60" height="60" alt="同"></td>
+    </tr>
+</table>
+</body>
+</html>
